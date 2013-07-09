@@ -7,14 +7,27 @@
     <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" href="/custom/styles.css">
-
     <script src="/vendor/js/jquery-1-10-1.js"></script>
-    <script src="/custom/solitairescripts.js"></script>
   </head>
   <body>
-
-    <div class="gameGrid">
+    <div class="container-narrow">
+      <div class="row">
+        <div class="span4">
+          <h2>Solitaire</h2>
+          <%= erb :_solitaireDesc  %>
+          <a href="/solitaire" class="btn btn-large">Play</a>
+        </div>
+        <div class="span4">
+          <h2>CodeBreaker</h2>
+          <p>Coming soon!</p>
+          <a href="#" class="btn btn-large disabled">Play</a>
+        </div>
+        <div class="span4">
+          <h2>Weird Chat</h2>
+          <p>Coming Soon!</p>
+          <a href="#" class="btn btn-large disabled">Play</a>
+        </div>
+      </div>
     </div>
-
   </body>
 </html>
