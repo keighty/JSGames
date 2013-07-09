@@ -52,7 +52,7 @@ $(function () {
 
   });
 
-  $('#reset').on('click', function() {
+  $('.reset').on('click', function() {
     setCenter(allSquares);
     $(victory).empty();
   });
