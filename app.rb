@@ -8,3 +8,7 @@ end
 get '/' do
   erb :index
 end
+
+get '/solitaire' do
+  erb :solitaire
+end
