@@ -24,3 +24,9 @@ body {
 .reset {
   margin-bottom: 1em;
 }
+
+.gameImg {
+  width: 75%;
+  margin: auto;
+  display: block;
+}
