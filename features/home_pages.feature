@@ -7,6 +7,6 @@ Feature: Recruiter visits the Home Page
     Given I am on the home page
     Then I should see "Welcome to JSGames"
 
-  Scenario: Find heading on home page
+  Scenario: Find solitaire on home page
     Given I am on the home page
     Then I should find "Solitaire" in the selector "h2"
