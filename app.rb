@@ -12,3 +12,8 @@ end
 get '/solitaire' do
   erb :solitaire
 end
+
+get '/mastermind' do
+  erb :mastermind
+end
+
