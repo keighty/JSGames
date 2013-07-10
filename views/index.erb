@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <head>
     <meta charset="utf-8">
-    <title>Solitaire Game</title>
+    <title>JSGames</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
@@ -12,10 +12,17 @@
   <body>
     <div class="container-narrow">
       <div class="row">
+        <div class="span6 offset3">
+          <h1>Welcome to JSGames</h1>
+          <p>Learning new web technologies is fun, but finding ways to apply them is even better. Here is a collection of games using many different tools: javascript, jQuery, bootstrap, rails, sinatra, cucumber, rspec, webrat. Check out my <a href="katieleonard.ca">profile for more code examples.</a></p>
+        </div>
+      </div>
+      <div class="row">
         <div class="span4 pagination-centered">
           <h2>Solitaire</h2>
           <%= erb :_solitaireDesc  %>
-          <img class="gameImg" src="/images/solitaire.png" alt="Solitaire Image" />
+          <a href="/solitaire">
+          <img class="gameImg" src="/images/solitaire.png" alt="Solitaire Image" /></a>
           <a href="/solitaire" class="btn btn-large">Play</a>
         </div>
         <div class="span4 pagination-centered">
