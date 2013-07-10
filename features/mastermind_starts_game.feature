@@ -6,5 +6,5 @@ Feature: mastermind starts game
   Scenario: start game
     Given I am on '/mastermind'
     When I follow "Start New Game"
-    Then I should see "Welcome to Codebreaker!"
-    And I should see "Enter guess:"
+    Then I should see "Mastermind"
+    And I should see "Enter Guess"
