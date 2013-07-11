@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <title>Solitaire Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/vendor/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/custom/mastermindstyles.css">
+
+    <script src="/vendor/js/jquery-1-10-1.js"></script>
+    <script src="/custom/mastermindscripts.js"></script>
+  </head>
+  <body>
+
+    <h1>Mastermind</h1>
+    <%= erb :_mastermindDesc  %>
+    <a id="play" href="#" class="btn btn-large btn-primary">Start New Game</a>
+
+    <form class="form-horizontal">
+
+      <fieldset>
+        <legend>Secret Code</legend>
+        <!-- Guess-->
+        <p>XXXXX</p>
+        <!-- Form Name -->
+        <legend>Enter Guess</legend>
+        <!-- Text input-->
+          <input id="guess_text" name="guess_text" type="text" placeholder="Enter 5 digit guess">
+      </fieldset>
+    </form>
+
+  </body>
+</html>
