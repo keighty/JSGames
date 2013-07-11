@@ -40,7 +40,7 @@ Feature: code-breaker submits guess
   Scenarios: 1 number correct
     | code  | guess | mark |
     | 12345 | 16666 | +    |
-    | 12345 | 61666 | -    |
+    | 12345 | 26666 | -    |
 
   Scenarios: no matches
     | code  | guess | mark |

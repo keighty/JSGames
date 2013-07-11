@@ -1,4 +1,6 @@
 require_relative '../../app'
+$LOAD_PATH << File.expand_path('../../../lib', __FILE__)
+require 'mastermind'
 
 require 'Capybara'
 require 'Capybara/cucumber'
