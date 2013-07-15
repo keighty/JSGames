@@ -2,20 +2,37 @@ module Mastermind
   class Game
     attr_accessor :code, :mark
     def initialize
-      @mark = ''
+      @code = start(generateCode)
     end
     def start(startcode)
       @code = startcode
     end
     def guess(guess)
-      if @code.split('').first == guess[0]
-        @mark << '+'
-      elsif @code.include?(guess[0])
-        @mark << '-'
+      @mark = ''
+      @guess = guess
+      code = @code
+      guess.split('').each_with_index do |char, index|
+        if exact_match?(index)
+          @mark << '+'
+          code[index] = 'x'
+        elsif number_match?(index)
+          location = code.index(guess[index])
+          unless exact_match?(location)
+            @mark << '-'
+            code[location] = 'x'
+          end
+        end
       end
+      @mark.split('').sort.join
     end
     def generateCode
-      (0...5).map { |i| rand((i == 0 ? 1 : 0)..9) }.join
+      (0...4).map { |i| rand((i == 0 ? 1 : 0)..9) }.join
+    end
+    def exact_match?(index)
+      @code[index] == @guess[index]
+    end
+    def number_match?(index)
+      @code.include?(@guess[index])
     end
   end
 end
