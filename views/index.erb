@@ -14,7 +14,7 @@
       <div class="row">
         <div class="span6 offset3">
           <h1>Welcome to JSGames</h1>
-          <p>Learning new web technologies is fun, but finding ways to apply them is even better. Here is a collection of games using many different tools: javascript, jQuery, bootstrap, rails, sinatra, cucumber, rspec, webrat. Check out my <a href="katieleonard.ca">profile for more code examples.</a></p>
+          <%= erb :_intro  %>
         </div>
       </div>
       <div class="row">
@@ -28,7 +28,7 @@
         <div class="span4 pagination-centered">
           <h2>Mastermind</h2>
           <%= erb :_mastermindDesc  %>
-          <a href="/mastermind" class="btn btn-large disabled">Play</a>
+          <a href="/mastermind" class="btn btn-large">Play</a>
         </div>
         <div class="span4 pagination-centered">
           <h2>Weird Chat</h2>
