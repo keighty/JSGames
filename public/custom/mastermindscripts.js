@@ -31,6 +31,8 @@ $(function() {
   $('.btn-primary').bind('click', function() {
     form.show();
     game = new Game();
+    $('.secret_code').text("XXXXX");
+    console.log(game.secret);
     build_html("Guess", "Mark");
   });
 
@@ -40,7 +42,7 @@ $(function() {
 
     if (output_mark == "+++++"){
       build_html("ZOMG", "YAY");
-      $('#secret').text(game.secret);
+      $('.secret_code').text(game.secret);
     } else {
       build_html(user_guess, output_mark);
     }
@@ -73,8 +75,7 @@ function Game(start_code) {
 }
 
 var codeGen = function codeGen() {
-  // TODO write logic for code generator
-  return '12345';
+  return (""+Math.random()).substring(2,7);
 };
 
 var mark = function mark(secret_code, guess_string){

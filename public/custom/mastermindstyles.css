@@ -5,8 +5,8 @@
   text-align: center;
 }
 
-input {
-  display: block;
+legend, .secret_code {
+  text-align: center;
 }
 
 label.valid {

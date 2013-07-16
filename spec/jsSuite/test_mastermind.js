@@ -40,4 +40,15 @@ describe( "Mastermind", function () {
       expect(game.guess('61366')).toEqual('+-');
     });
   });
+  describe( "Code", function () {
+    it( "is 5 digits", function () {
+      game = new Game();
+      expect(game.secret.length).toEqual(5);
+    });
+    it( "is random", function () {
+      game1 = new Game();
+      game2 = new Game();
+      expect(game1.secret).not.toEqual(game2.secret);
+    });
+  });
 });
