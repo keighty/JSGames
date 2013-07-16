@@ -1,12 +1,14 @@
 var secret,
     guess,
     mark,
-    game;
+    game,
+    form,
+    counter = 0,
+    success_div;
 
 $(function() {
-  var form = $('form');
+  form = $('form');
   form.hide();
-
   form.on('click', function() {
     return false;
   });
@@ -29,27 +31,29 @@ $(function() {
     });
 
   $('.btn-primary').bind('click', function() {
-    form.show();
     game = new Game();
-    $('.secret_code').text("XXXXX");
-    console.log(game.secret);
-    build_html("Guess", "Mark");
+    prep_game_board();
   });
 
   $('#guess').bind('click', function() {
     var user_guess = $('#guess_text').val();
-    var output_mark = game.guess(user_guess);
-
-    if (output_mark == "+++++"){
-      build_html("ZOMG", "YAY");
-      $('.secret_code').text(game.secret);
-    } else {
-      build_html(user_guess, output_mark);
-    }
+    $('#guess_text').val("");
+    validate_guess(user_guess);
   });
 });
 
-var build_html = function(input_string, output_string) {
+var validate_guess = function validate_guess(user_guess) {
+  var output_mark = game.guess(user_guess);
+  if (output_mark == "+++++"){
+    form.hide();
+    build_alert_html("success");
+    $('.secret_code').text(game.secret);
+  } else {
+    build_guess_html(user_guess, output_mark);
+  }
+};
+
+var build_guess_html = function(input_string, output_string) {
   html = '';
   html += "<div class='row'><div class='span6 guess'><p>";
   html += input_string;
@@ -58,6 +62,20 @@ var build_html = function(input_string, output_string) {
   html += "</p></div></div>";
 
   $(html).appendTo('.guess_row');
+};
+
+var build_alert_html = function(alert_type) {
+  var success_string = "<div class='span6 offset2 alert alert-" + alert_type + "'><p>You guessed the secret! Play again?</p></div>";
+  $(success_string).prependTo('.game_area');
+};
+
+var prep_game_board = function prep_game_board() {
+  form.show();
+  $('.secret_code').text("XXXXX");
+  $('.guess_row').children().remove();
+  $('.alert').remove();
+  console.log(game.secret);
+  build_guess_html("Guess", "Mark");
 };
 
 function Game(start_code) {
@@ -98,9 +116,3 @@ var mark = function mark(secret_code, guess_string){
   }
   return mark_string.split('').sort().join('');
 };
-
-
-
-
-
-

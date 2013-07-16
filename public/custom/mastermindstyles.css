@@ -1,8 +1,17 @@
+body {
+  background-color: lightblue;
+}
+
 .btn-primary {
   margin-bottom: 1em;
 }
 .guess {
   text-align: center;
+  font-size: 2em;
+}
+
+.mark {
+  font-size: 2em;
 }
 
 legend, .secret_code {

@@ -10,13 +10,15 @@
   </head>
   <body>
 
-    <h1>Mastermind</h1>
-    <%= erb :_mastermindDesc  %>
-    <a id="play" href="#" class="btn btn-large btn-primary">Start New Game</a>
+    <div class="hero-unit">
+      <h1>Mastermind</h1>
+      <%= erb :_mastermindDesc  %>
+      <a id="play" href="#" class="btn btn-large btn-primary">Start Game</a>
+    </div>
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span2">
+        <div class="span2 offset1">
           <form class="form-horizontal">
             <!-- Form Name -->
             <legend>Crack the code</legend>
@@ -31,15 +33,11 @@
             </div>
           </form>
         </div>
-        <div class="span10">
+        <div class="span9 game_area">
           <!-- add guesses here -->
           <div class="row guess_row"></div>
         </div>
       </div>
     </div>
-
-
-
-
   </body>
 </html>
