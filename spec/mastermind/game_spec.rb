@@ -112,5 +112,14 @@ module Mastermind
         end
       end
     end
+
+    describe '#play' do
+      describe 'game page' do
+        it "shows title Mastermind" do
+          visit '/mastermind'
+          page.should have_content('Mastermind')
+        end
+      end
+    end
   end
 end
