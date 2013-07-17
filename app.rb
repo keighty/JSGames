@@ -20,7 +20,10 @@ class JSGames < Sinatra::Base
     game.guess(params[:guess])
   end
 
-# sinatra passes through if you tell it to
+  not_found do
+    halt 404, 'page not found'
+  end
+
   private
     def set_game
       @game = Mastermind::Game.start(params[:code])
