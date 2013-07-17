@@ -92,7 +92,7 @@ var codeGen = function codeGen() {
 };
 
 var mark = function mark(secret_code, guess_string){
-  var the_url = "http://localhost:9393/game/" + guess_string;
+  var the_url = "http://" + window.location.host + "/game/" + guess_string;
   var mark_string = $.ajax({
     type: "POST",
     url: the_url,
