@@ -34,5 +34,6 @@ class JSGames < Sinatra::Base
     def game
       @game ||= Mastermind::Game.new_with_code(params[:code])
     end
-    # game = Mastermind::Game.start(session)
 end
+
+# curl -X POST -H "Accept: application/json" -d "code=12345" localhost:9393/game/12345

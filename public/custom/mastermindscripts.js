@@ -38,19 +38,22 @@ $(function() {
   $('#guess').bind('click', function() {
     var user_guess = $('#guess_text').val();
     $('#guess_text').val("");
-    validate_guess(user_guess);
+    game.guess(user_guess);
   });
 });
 
+var prep_game_board = function prep_game_board() {
+  form.show();
+  $('.secret_code').text("XXXXX");
+  $('.guess_row').children().remove();
+  $('.alert').remove();
+  // console.log(game.secret);
+  build_guess_html("Guess", "Mark");
+};
+
 var validate_guess = function validate_guess(user_guess) {
   var output_mark = game.guess(user_guess);
-  if (output_mark == "+++++"){
-    form.hide();
-    build_alert_html("success");
-    $('.secret_code').text(game.secret);
-  } else {
-    build_guess_html(user_guess, output_mark);
-  }
+
 };
 
 var build_guess_html = function(input_string, output_string) {
@@ -69,14 +72,6 @@ var build_alert_html = function(alert_type) {
   $(success_string).prependTo('.game_area');
 };
 
-var prep_game_board = function prep_game_board() {
-  form.show();
-  $('.secret_code').text("XXXXX");
-  $('.guess_row').children().remove();
-  $('.alert').remove();
-  console.log(game.secret);
-  build_guess_html("Guess", "Mark");
-};
 
 function Game(start_code) {
   if(typeof start_code === 'undefined') {
@@ -88,7 +83,7 @@ function Game(start_code) {
     if(guess_string.length > 5 || guess_string.length < 5){
       throw new Error("Not a valid guess");
     }
-    return mark(this.secret, guess_string);
+    mark(this.secret, guess_string);
   };
 }
 
@@ -97,22 +92,27 @@ var codeGen = function codeGen() {
 };
 
 var mark = function mark(secret_code, guess_string){
-  // secret = secret_code.split('');
-  // guess = guess_string.split('');
-  // mark_string = '';
-  // for(var i = 0; i < guess.length; i++){
-  //   if (secret[i] == guess[i]) {
-  //     mark_string += "+";
-  //     secret[i] = 'x';
-  //   } else {
-  //     if (secret.indexOf(guess[i]) > -1) {
-  //       var location = secret.indexOf(guess[i]);
-  //       if (secret[location] != guess[location]) {
-  //         mark_string += "-";
-  //         secret[location] = 'x';
-  //       }
-  //     }
-  //   }
-  // }
-  // return mark_string.split('').sort().join('');
+  var the_url = "http://localhost:9393/game/" + guess_string;
+  var mark_string = $.ajax({
+    type: "POST",
+    url: the_url,
+
+    accepts: "application/json",
+    dataType: "json",
+
+    data: { 'code' : secret_code },
+    complete: function(data){
+      output_mark = data['responseText'];
+      process_output(secret_code, guess_string, output_mark);
+    }
+  });
+};
+
+var process_output = function process_output(secret, guess, output) {
+  build_guess_html(guess, output);
+  if (output == "+++++"){
+    form.hide();
+    build_alert_html("success");
+    $('.secret_code').text(secret);
+  }
 };
