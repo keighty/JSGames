@@ -42,7 +42,7 @@ $(function() {
 var prep_game_board = function prep_game_board() {
   $('.guess_additions').remove();
   $('.game_outline').show();
-  console.log(game.secret);
+  // console.log(game.secret);
 };
 
 // Game object

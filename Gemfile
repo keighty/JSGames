@@ -7,9 +7,11 @@ gem 'capybara'
 gem 'rspec'
 gem 'webrat'
 
-gem 'sqlite3'
-gem 'activerecord'
-gem 'sinatra-activerecord'
+group :development do
+  gem 'sqlite3'
+  gem 'activerecord'
+  gem 'sinatra-activerecord'
+end
 
 group :development do
   gem 'shotgun'
