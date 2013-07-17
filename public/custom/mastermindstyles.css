@@ -14,17 +14,24 @@ body {
   font-size: 2em;
 }
 
+.alert-success {
+  font-size: 2em;
+  line-height: 1em;
+  text-align: center;
+}
+
+.game_outline {
+  display: none;
+}
+
 legend, .secret_code {
   text-align: center;
 }
 
 label.valid {
-  width: 24px;
-  height: 24px;
-  background: url(assets/img/valid.png) center center no-repeat;
-  display: inline-block;
   text-indent: -9999px;
 }
+
 label.error {
   font-weight: bold;
   color: red;

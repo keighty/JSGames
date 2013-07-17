@@ -2,13 +2,10 @@ var secret,
     guess,
     mark,
     game,
-    form,
-    counter = 0,
-    success_div;
+    form;
 
 $(function() {
   form = $('form');
-  form.hide();
   form.on('click', function() {
     return false;
   });
@@ -43,36 +40,12 @@ $(function() {
 });
 
 var prep_game_board = function prep_game_board() {
-  form.show();
-  $('.secret_code').text("XXXXX");
-  $('.guess_row').children().remove();
-  $('.alert').remove();
-  // console.log(game.secret);
-  build_guess_html("Guess", "Mark");
+  $('.guess_additions').remove();
+  $('.game_outline').show();
+  console.log(game.secret);
 };
 
-var validate_guess = function validate_guess(user_guess) {
-  var output_mark = game.guess(user_guess);
-
-};
-
-var build_guess_html = function(input_string, output_string) {
-  html = '';
-  html += "<div class='row'><div class='span6 guess'><p>";
-  html += input_string;
-  html += "</p></div><div class='span6 mark'><p>";
-  html += output_string;
-  html += "</p></div></div>";
-
-  $(html).appendTo('.guess_row');
-};
-
-var build_alert_html = function(alert_type) {
-  var success_string = "<div class='span6 offset2 alert alert-" + alert_type + "'><p>You guessed the secret! Play again?</p></div>";
-  $(success_string).prependTo('.game_area');
-};
-
-
+// Game object
 function Game(start_code) {
   if(typeof start_code === 'undefined') {
     this.secret = codeGen();
@@ -91,6 +64,7 @@ var codeGen = function codeGen() {
   return (""+Math.random()).substring(2,7);
 };
 
+// uses ajax to call ruby
 var mark = function mark(secret_code, guess_string){
   var the_url = "http://" + window.location.host + "/game/" + guess_string;
   var mark_string = $.ajax({
@@ -113,6 +87,21 @@ var process_output = function process_output(secret, guess, output) {
   if (output == "+++++"){
     form.hide();
     build_alert_html("success");
-    $('.secret_code').text(secret);
   }
+};
+
+var build_guess_html = function(input_string, output_string) {
+  html = '';
+  html += "<div class='row guess_additions'><div class='span6 guess'><p>";
+  html += input_string;
+  html += "</p></div><div class='span6 mark'><p>";
+  html += output_string;
+  html += "</p></div></div>";
+
+  $(html).prependTo('.guess_row');
+};
+
+var build_alert_html = function(alert_type) {
+  var success_string = "<div class='span6 offset2 guess_additions alert alert-" + alert_type + "'><p>You guessed the secret!</p></div>";
+  $(success_string).prependTo('.game_area');
 };
