@@ -6,14 +6,14 @@ gem 'cucumber'
 gem 'capybara'
 gem 'rspec'
 gem 'webrat'
+gem 'activerecord'
+gem 'sinatra-activerecord'
 
+group :production do
+  gem 'pg'
+end
 group :development do
   gem 'sqlite3'
-  gem 'activerecord'
-  gem 'sinatra-activerecord'
-end
-
-group :development do
   gem 'shotgun'
   gem 'tux'
 end
