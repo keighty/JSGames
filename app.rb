@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra/base'
-# require 'lib/mastermind'
+require './lib/mastermind'
 
 class JSGames < Sinatra::Base
   get '/' do
