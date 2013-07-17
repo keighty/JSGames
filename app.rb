@@ -1,6 +1,13 @@
 require 'rubygems'
+require 'sinatra'
+require 'sinatra/activerecord'
 require 'sinatra/base'
 require './lib/mastermind'
+
+set :database, "sqlite3:///mastermind.db"
+
+class TopPlayer < ActiveRecord::Base
+end
 
 class JSGames < Sinatra::Base
   get '/' do
@@ -16,7 +23,6 @@ class JSGames < Sinatra::Base
   end
 
   post '/game/:guess' do
-    game = set_game
     game.guess(params[:guess])
   end
 
@@ -25,8 +31,8 @@ class JSGames < Sinatra::Base
   end
 
   private
-    def set_game
-      @game = Mastermind::Game.start(params[:code])
+    def game
+      @game ||= Mastermind::Game.new_with_code(params[:code])
     end
     # game = Mastermind::Game.start(session)
 end

@@ -7,6 +7,12 @@ module Mastermind
     def start(startcode)
       @code = startcode
     end
+    def self.new_with_code(startcode)
+      game = self.new
+      game.code = startcode
+      return game
+    end
+
     def guess(guess)
       @mark = ''
       @guess = guess

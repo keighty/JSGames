@@ -97,22 +97,22 @@ var codeGen = function codeGen() {
 };
 
 var mark = function mark(secret_code, guess_string){
-  secret = secret_code.split('');
-  guess = guess_string.split('');
-  mark_string = '';
-  for(var i = 0; i < guess.length; i++){
-    if (secret[i] == guess[i]) {
-      mark_string += "+";
-      secret[i] = 'x';
-    } else {
-      if (secret.indexOf(guess[i]) > -1) {
-        var location = secret.indexOf(guess[i]);
-        if (secret[location] != guess[location]) {
-          mark_string += "-";
-          secret[location] = 'x';
-        }
-      }
-    }
-  }
-  return mark_string.split('').sort().join('');
+  // secret = secret_code.split('');
+  // guess = guess_string.split('');
+  // mark_string = '';
+  // for(var i = 0; i < guess.length; i++){
+  //   if (secret[i] == guess[i]) {
+  //     mark_string += "+";
+  //     secret[i] = 'x';
+  //   } else {
+  //     if (secret.indexOf(guess[i]) > -1) {
+  //       var location = secret.indexOf(guess[i]);
+  //       if (secret[location] != guess[location]) {
+  //         mark_string += "-";
+  //         secret[location] = 'x';
+  //       }
+  //     }
+  //   }
+  // }
+  // return mark_string.split('').sort().join('');
 };
