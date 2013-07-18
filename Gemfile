@@ -8,9 +8,6 @@ gem 'rspec'
 gem 'webrat'
 
 group :development, :test do
-  gem 'sinatra-activerecord'
-  gem 'activerecord'
-  gem 'sqlite3'
   gem 'shotgun'
   gem 'tux'
 end

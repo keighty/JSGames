@@ -1,13 +1,7 @@
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/activerecord'
 require 'sinatra/base'
 require './lib/mastermind'
-
-set :database, "sqlite3:///mastermind.db"
-
-class TopPlayer < ActiveRecord::Base
-end
 
 class JSGames < Sinatra::Base
   get '/' do
