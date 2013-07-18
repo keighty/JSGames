@@ -1,18 +1,11 @@
 module Mastermind
   class Game
     attr_accessor :code, :mark
-    def initialize
-      @code = start(generateCode)
-    end
-    def start(startcode)
-      @code = startcode
-    end
     def self.new_with_code(startcode)
       game = self.new
       game.code = startcode
       return game
     end
-
     def guess(guess)
       @mark = ''
       @guess = guess
