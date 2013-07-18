@@ -24,9 +24,6 @@ module Mastermind
       end
       @mark.split('').sort.join
     end
-    def generateCode
-      (0...4).map { |i| rand((i == 0 ? 1 : 0)..9) }.join
-    end
     def exact_match?(index)
       @code[index] == @guess[index]
     end
