@@ -76,7 +76,7 @@ var mark = function mark(secret_code, guess_string){
 
     data: { 'code' : secret_code },
     complete: function(data){
-      output_mark = data['responseText'];
+      var output_mark = data['responseText'];
       process_output(secret_code, guess_string, output_mark);
     }
   });
