@@ -1,6 +1,9 @@
 var game;
+
 describe( "Mastermind", function () {
   beforeEach(function() {
+    jasmine.getFixtures().fixturesPath = '../spec/fixtures';
+    loadFixtures('_form.html');
     game = new Game('12345');
   });
   it( "starts a game", function () {
@@ -12,32 +15,15 @@ describe( "Mastermind", function () {
     expect(gameSpy).toHaveBeenCalled();
   });
   describe( "Guess", function () {
+    beforeEach(function() {
+      jasmine.getFixtures().fixturesPath = '../spec/fixtures';
+      loadFixtures('_guess.html');
+    });
     it( "is only 5 digits", function () {
       expect(function() { game.guess('111111'); }).toThrow(new Error("Not a valid guess"));
     });
     it( "is at least 5 digits", function () {
       expect(function() { game.guess('11'); }).toThrow(new Error("Not a valid guess"));
-    });
-    it( "sends '' with no matches", function () {
-      expect(game.guess('66666')).toEqual('');
-    });
-    it( "sends '+' with one exact match", function () {
-      expect(game.guess('16666')).toEqual('+');
-    });
-    it( "sends '-' with one number match", function () {
-      expect(game.guess('26666')).toEqual('-');
-    });
-    it( "sends '--' with two number matches", function () {
-      expect(game.guess('21666')).toEqual('--');
-    });
-    it( "sends '++' with two exact matches", function () {
-      expect(game.guess('12666')).toEqual('++');
-    });
-    it( "sends '+-' with one exact and one number match", function () {
-      expect(game.guess('16662')).toEqual('+-');
-    });
-    it( "sends '+-' with one number match and one exact match", function () {
-      expect(game.guess('61366')).toEqual('+-');
     });
   });
   describe( "Code", function () {
