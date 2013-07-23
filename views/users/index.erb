@@ -1,0 +1,12 @@
+<h1>Welcome!</h1>
+<ul>
+<% @users.each do |user| %>
+  <li>
+    <h2><a href="/u/users/<%= user.id %>"><%= user.name %></a>
+    <span><%= pretty_date(user.created_at) %></span>
+    </h2>
+  </li>
+<% end %>
+
+<% puts request.inspect  %>
+</ul>

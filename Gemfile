@@ -7,7 +7,16 @@ gem 'capybara'
 gem 'rspec'
 gem 'webrat'
 
+gem "activerecord"
+gem "sinatra-activerecord"
+gem "rack"
+gem "pg", group: [:production]
+
+# gem 'simple_form'
+# gem 'country_select'
+
 group :development, :test do
   gem 'shotgun'
   gem 'tux'
+  gem 'sqlite3'
 end
