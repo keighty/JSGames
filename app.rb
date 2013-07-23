@@ -1,3 +1,6 @@
+require 'bundler'
+Bundler.require
+
 require './lib/mastermind'
 
 class JSGames < Sinatra::Base
