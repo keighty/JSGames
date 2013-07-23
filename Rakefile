@@ -1,5 +1,3 @@
-require './app'
-require 'rubygems'
 require 'rspec/core/rake_task'
 require 'sinatra/activerecord/rake'
 
