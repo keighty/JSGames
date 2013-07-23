@@ -1,12 +1,7 @@
 <h1>Edit User</h1>
-<form action="/u/users/<%= @user.id  %>" method="post">
-  <label for="user_name">name:</label><br />
-  <input id="user_name" name="user[name]" type="text" value="<%= @user.name %>" />
-  <br />
 
-  <label for="user_email">email:</label><br />
-  <input id="user_email" name="user[email]" type="text" value="<%= @user.email %>" />
-  <br />
-
-  <input type="submit" value="Create user" />
-</form>
+<% form(@user, action: "/u/users/#{@user.id}", method: "post", class: "form-horizontal") do |f| %>
+  <%= f.input(:name, name: "user[name]") %>
+  <%= f.input(:email, name: "user[email]") %>
+  <%= f.button(:value=>'Update') %>
+<% end %>
