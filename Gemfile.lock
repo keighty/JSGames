@@ -90,6 +90,7 @@ DEPENDENCIES
   activerecord
   capybara
   forme
+  minitest
   pg
   rack
   rspec

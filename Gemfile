@@ -22,4 +22,5 @@ group :development, :test do
   gem 'shotgun'
   gem 'tux'
   gem 'sqlite3'
+  gem 'minitest'
 end
