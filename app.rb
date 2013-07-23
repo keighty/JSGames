@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'sinatra'
-require 'sinatra/base'
 require './lib/mastermind'
 
 class JSGames < Sinatra::Base
