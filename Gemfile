@@ -12,8 +12,9 @@ gem "sinatra-activerecord"
 gem "rack"
 gem "pg", group: [:production]
 
-# gem 'simple_form'
-# gem 'country_select'
+gem 'cells'
+gem 'simple_form'
+gem 'country_select'
 
 group :development, :test do
   gem 'shotgun'
