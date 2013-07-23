@@ -26,5 +26,3 @@ class JSGames < Sinatra::Base
       @game ||= Mastermind::Game.new_with_code(params[:code])
     end
 end
-
-# curl -X POST -H "Accept: application/json" -d "code=12345" localhost:9393/game/12345
