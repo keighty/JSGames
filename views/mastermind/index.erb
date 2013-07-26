@@ -2,17 +2,17 @@
   <head>
     <link rel="stylesheet" href="/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="/vendor/css/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="/custom/mastermindstyles.css">
+    <link rel="stylesheet" href="/custom/mastermind/styles.css">
 
     <script src="/vendor/js/jquery-1-10-1.js"></script>
     <script src="/vendor/js/jquery.validate.js"></script>
-    <script src="/custom/mastermindscripts.js"></script>
+    <script src="/custom/mastermind/script.js"></script>
   </head>
   <body>
 
     <div class="hero-unit">
       <h1>Mastermind</h1>
-      <%= erb :_mastermindDesc  %>
+      <%= erb :'_description/_mastermind'  %>
       <p>Submit a guess and Mastermind will tell you how close you are. Your mark will contain a '+' for every correct number in your guess that is also in the right location. A '-' will appear for every correct number in the wrong location.</p>
       <button id="play" class="btn btn-large btn-primary">Start Game</button>
     </div>

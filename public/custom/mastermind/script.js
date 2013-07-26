@@ -66,7 +66,7 @@ var codeGen = function codeGen() {
 
 // uses ajax to call ruby
 var mark = function mark(secret_code, guess_string){
-  var the_url = "http://" + window.location.host + "/game/" + guess_string;
+  var the_url = "http://" + window.location.host + "/mastermind/game/" + guess_string;
   var mark_string = $.ajax({
     type: "POST",
     url: the_url,
