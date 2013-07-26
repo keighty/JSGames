@@ -3,7 +3,7 @@ var game;
 describe( "Mastermind", function () {
   beforeEach(function() {
     jasmine.getFixtures().fixturesPath = '../spec/fixtures';
-    loadFixtures('_form.html');
+    loadFixtures('mastermind/_form.html');
     game = new Game('12345');
   });
   it( "starts a game", function () {
@@ -17,7 +17,7 @@ describe( "Mastermind", function () {
   describe( "Guess", function () {
     beforeEach(function() {
       jasmine.getFixtures().fixturesPath = '../spec/fixtures';
-      loadFixtures('_guess.html');
+      loadFixtures('mastermind/_guess.html');
     });
     it( "is only 5 digits", function () {
       expect(function() { game.guess('111111'); }).toThrow(new Error("Not a valid guess"));
