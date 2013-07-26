@@ -14,20 +14,20 @@
       <div class="row">
         <div class="hero-unit">
           <h1>Welcome to JSGames</h1>
-          <%= erb :_intro  %>
+          <%= erb :'_description/_intro'  %>
         </div>
       </div>
       <div class="row">
         <div class="span6 pagination-centered">
           <h2>Solitaire</h2>
-          <%= erb :_solitaireDesc  %>
+          <%= erb :'_description/_solitaire'  %>
           <a href="/solitaire">
           <img class="gameImg" src="/images/solitaire.png" alt="Solitaire Image" /></a>
           <a href="/solitaire" class="btn btn-large">Play</a>
         </div>
         <div class="span6 pagination-centered">
           <h2>Mastermind</h2>
-          <%= erb :_mastermindDesc  %>
+          <%= erb :'_description/_mastermind'  %>
           <a href="/mastermind">
           <img class="gameImg" src="/images/mastermind.png" alt="Mastermind Image" /></a>
           <a href="/mastermind" class="btn btn-large">Play</a>
