@@ -9,19 +9,19 @@ class JSGames < Sinatra::Base
   end
 
   get '/solitaire' do
-    erb :solitaire
+    erb :'solitaire/index'
   end
 
   get '/mastermind' do
-    erb :mastermind
+    erb :'mastermind/index'
   end
 
-  post '/game/:guess' do
+  post '/mastermind/game/:guess' do
     game.guess(params[:guess])
   end
 
   not_found do
-    halt 404, 'page not found'
+    halt 404, 'not found'
   end
 
   private
