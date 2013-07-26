@@ -38,3 +38,13 @@ describe( "Mastermind", function () {
     });
   });
 });
+
+// TODO write jasmine tests for Solitaire
+describe( "Solitaire", function () {
+  it( "loads a game board", function () {
+
+  });
+  xit( "sets the center square blue", function () {
+
+  });
+});
