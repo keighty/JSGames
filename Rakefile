@@ -34,6 +34,14 @@ namespace :db do
                           game: game)
     end
   end
+
+  desc 'Reset the database'
+  task :reset, :environment do
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
+    ActiveRecord::Migration.verbose = true
+    ActiveRecord::Migrator.down('db/migrate')
+    ActiveRecord::Migrator.migrate('db/migrate')
+  end
 end
 
 task default: :spec
