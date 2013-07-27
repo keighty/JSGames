@@ -1,2 +1,2 @@
-class HighScore < ActiveRecord::Base
+class Highscore < ActiveRecord::Base
 end

@@ -1,7 +1,4 @@
 require './app'
-require 'sinatra/activerecord/rake'
-
-require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new do |task|
   task.rspec_opts = ["-r ./spec/spec_helper.rb"]
