@@ -23,5 +23,6 @@ Guess the five digit secret code in twenty guesses or fewer.
 Mastermind is adapted from Codebreaker, an RSpec teaching tool. It is expanded and modified to include ruby, javascript, sinatra, and bootstrap
 
 
-
+#TODO
+make seed file with Faker data
 

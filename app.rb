@@ -1,7 +1,5 @@
 # require 'bundler'
 # Bundler.require
-
-
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
@@ -26,6 +24,10 @@ class JSGames < Sinatra::Base
 
   post '/mastermind/game/:guess' do
     game.guess(params[:guess])
+  end
+
+  get '/highscores' do
+    @solitare_scores = Highscore.find_by_game("solitaire")
   end
 
   not_found do
