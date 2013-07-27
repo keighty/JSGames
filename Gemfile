@@ -6,6 +6,7 @@ gem "activerecord"
 gem "sinatra-activerecord"
 
 gem 'rspec'
+gem 'faker'
 
 group :development, :test do
   gem 'shotgun'
@@ -13,7 +14,6 @@ group :development, :test do
   gem 'capybara'
   gem 'webrat'
   gem 'sqlite3'
-  gem 'faker'
 end
 
 group :production do
