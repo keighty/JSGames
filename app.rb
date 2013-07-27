@@ -27,8 +27,8 @@ class JSGames < Sinatra::Base
   end
 
   get '/highscores' do
-    @solitaire_scores = Highscore.find_all_by_game("solitaire")
-    @mastermind_scores = Highscore.find_all_by_game("mastermind")
+    @solitaire_scores = Highscore.find_all_by_game("solitaire", limit: 10)
+    @mastermind_scores = Highscore.find_all_by_game("mastermind", limit: 10)
     erb :'highscore/index'
   end
 
