@@ -1,10 +1,12 @@
 # require 'bundler'
 # Bundler.require
 
-require './lib/mastermind'
 
 require 'sinatra'
 require 'sinatra/activerecord'
+
+
+require './lib/mastermind'
 require './config/environments'
 require './models/highscore'
 
