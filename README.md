@@ -21,7 +21,3 @@ Guess the five digit secret code in twenty guesses or fewer.
 
 ###Background
 Mastermind is adapted from Codebreaker, an RSpec teaching tool. It is expanded and modified to include ruby, javascript, sinatra, and bootstrap
-
-
-
-

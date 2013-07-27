@@ -1,7 +1,11 @@
-require 'bundler'
-Bundler.require
+# require 'bundler'
+# Bundler.require
+require 'sinatra'
+require 'sinatra/activerecord'
 
 require './lib/mastermind'
+require './config/environments'
+require './models/highscore'
 
 class JSGames < Sinatra::Base
   get '/' do
@@ -18,6 +22,12 @@ class JSGames < Sinatra::Base
 
   post '/mastermind/game/:guess' do
     game.guess(params[:guess])
+  end
+
+  get '/highscores' do
+    @solitaire_scores = Highscore.reorder(:score).find_all_by_game("solitaire", limit: 10)
+    @mastermind_scores = Highscore.reorder(:score).find_all_by_game("mastermind", limit: 10)
+    erb :'highscore/index'
   end
 
   not_found do

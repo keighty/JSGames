@@ -1,33 +1,14 @@
-body {
+.table td{
+  text-align: center;
+}
+.table th{
+  text-align: center;
+}
+.table {
+  width: 50%;
   margin: auto;
-  max-width: 90%;
 }
 
-.square {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  background-color: gray;
-  display:inline-block;
-}
-
-.blue {
-  background-color: blue;
-}
-
-.victory {
-  font-size: large;
-  color: red;
-}
-
-.reset {
-  margin-bottom: 1em;
-}
-
-.gameImg {
-  height: 75%;
-  width: 75%;
-  margin: auto;
-  display: block;
+h2 {
+  text-align: center;
 }
