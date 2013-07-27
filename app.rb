@@ -1,7 +1,12 @@
-require 'bundler'
-Bundler.require
+# require 'bundler'
+# Bundler.require
 
 require './lib/mastermind'
+
+require 'sinatra'
+require 'sinatra/activerecord'
+require './config/environments'
+require './models/highscore'
 
 class JSGames < Sinatra::Base
   get '/' do
