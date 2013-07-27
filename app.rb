@@ -2,8 +2,6 @@
 # Bundler.require
 require 'sinatra'
 require 'sinatra/activerecord'
-require 'sinatra/activerecord/rake'
-require 'rspec/core/rake_task'
 
 require './lib/mastermind'
 require './config/environments'
@@ -27,8 +25,8 @@ class JSGames < Sinatra::Base
   end
 
   get '/highscores' do
-    @solitaire_scores = Highscore.find_all_by_game("solitaire", limit: 10)
-    @mastermind_scores = Highscore.find_all_by_game("mastermind", limit: 10)
+    @solitaire_scores = Highscore.reorder(:score).find_all_by_game("solitaire", limit: 10)
+    @mastermind_scores = Highscore.reorder(:score).find_all_by_game("mastermind", limit: 10)
     erb :'highscore/index'
   end
 
