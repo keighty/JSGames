@@ -13,6 +13,7 @@ group :development, :test do
   gem 'capybara'
   gem 'webrat'
   gem 'sqlite3'
+  gem 'faker'
 end
 
 group :production do

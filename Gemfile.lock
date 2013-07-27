@@ -27,6 +27,8 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     diff-lcs (1.2.4)
+    faker (1.1.2)
+      i18n (~> 0.5)
     i18n (0.6.4)
     mime-types (1.23)
     mini_portile (0.5.1)
@@ -88,6 +90,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   capybara
+  faker
   pg
   rspec
   shotgun
