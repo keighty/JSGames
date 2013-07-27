@@ -25,4 +25,6 @@ Mastermind is adapted from Codebreaker, an RSpec teaching tool. It is expanded a
 
 #TODO
 make seed file with Faker data
-
+limit highscore search to 10 records
+player can enter initials and game automatically stores score for each game
+styling for highscore tables

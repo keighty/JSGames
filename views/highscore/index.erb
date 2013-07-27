@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="span6">
+    <h2>Solitaire High Scores</h2>
+    <table>
+      <tr>
+        <th>Initials</th>
+        <th>Score</th>
+      </tr>
+      <% @solitaire_scores.each do |score| %>
+      <tr>
+        <td><%= score.name  %></td>
+        <td><%= score.score  %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="span6">
+    <h2>Mastermind High Scores</h2>
+    <table>
+      <tr>
+        <th>Initials</th>
+        <th>Score</th>
+      </tr>
+      <% @mastermind_scores.each do |score| %>
+      <tr>
+        <td><%= score.name  %></td>
+        <td><%= score.score  %></td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
