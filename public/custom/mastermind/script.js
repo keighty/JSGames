@@ -2,7 +2,8 @@ var secret,
     guess,
     mark,
     game,
-    form;
+    form,
+    counter = 0;
 
 $(function() {
   form = $('form');
@@ -35,14 +36,43 @@ $(function() {
   $('#guess').bind('click', function() {
     var user_guess = $('#guess_text').val();
     $('#guess_text').val("");
+    counter += 1;
     game.guess(user_guess);
+  });
+
+  $('#submit_score').bind('click', function() {
+    // submit the name for high score
+    var name = $('#highscore_name').val();
+    var high_score_url = "http://" + window.location.host + "/highscore/" + name;
+
+    console.log(name);
+    console.log(high_score_url);
+    console.log(counter);
+
+    var high_score = $.ajax({
+      type: "POST",
+      url: high_score_url,
+      accepts: "application/json",
+      dataType: "json",
+      data: {
+        'game'  : "mastermind",
+        'score' : counter },
+      complete: function(data){
+      }
+    });
+    $('#high_score_form').trigger('close');
   });
 });
 
 var prep_game_board = function prep_game_board() {
+  // TODO vanish hero unit but keep button
+
   $('.guess_additions').remove();
   $('.game_outline').show();
-  // console.log(game.secret);
+  $('#highscore_name').val("");
+  counter = 0;
+
+  console.log(game.secret);
 };
 
 // Game object
@@ -87,6 +117,14 @@ var process_output = function process_output(secret, guess, output) {
   if (output == "+++++"){
     form.hide();
     build_alert_html("success");
+    // make the lighbox visible
+    $('#high_score_form').lightbox_me({
+      centered: true,
+      onLoad: function() {
+        $('#high_score_form').find('input:first').focus();
+        }
+      });
+    e.preventDefault();
   }
 };
 
