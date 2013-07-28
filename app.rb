@@ -30,6 +30,13 @@ class JSGames < Sinatra::Base
     erb :'highscore/index'
   end
 
+  post '/highscore/:name' do
+    name = params[:name]
+    score = params[:score]
+    game_title = params[:game]
+    Highscore.create(name: name, score: score, game: game_title)
+  end
+
   not_found do
     halt 404, 'not found'
   end
