@@ -33,6 +33,7 @@ $(function() {
     prep_game_board();
   });
 
+  // processes the guess and increments guess counter
   $('#guess').bind('click', function() {
     var user_guess = $('#guess_text').val();
     $('#guess_text').val("");
@@ -40,10 +41,13 @@ $(function() {
     game.guess(user_guess);
   });
 
+  // creates an entry in the highscore table
+  // redirects to highscore page
   $('#submit_score').bind('click', function() {
     // submit the name for high score
     var name = $('#highscore_name').val();
     var high_score_url = "http://" + window.location.host + "/highscore/" + name;
+    var visit_high_scores = "http://" + window.location.host + "/highscores";
 
     console.log(name);
     console.log(high_score_url);
@@ -58,6 +62,7 @@ $(function() {
         'game'  : "mastermind",
         'score' : counter },
       complete: function(data){
+        window.location.href = visit_high_scores;
       }
     });
     $('#high_score_form').trigger('close');
@@ -112,11 +117,15 @@ var mark = function mark(secret_code, guess_string){
   });
 };
 
+// builds the guess display
+// checks the analyzed guess for a win
 var process_output = function process_output(secret, guess, output) {
   build_guess_html(guess, output);
   if (output == "+++++"){
     form.hide();
     build_alert_html("success");
+    // change the score display
+    $('#score_title').text("You won in " + counter + " moves");
     // make the lighbox visible
     $('#high_score_form').lightbox_me({
       centered: true,
