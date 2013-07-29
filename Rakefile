@@ -15,23 +15,16 @@ task :console, :environment do |t, args|
 end
 
 namespace :db do
-  desc "Fill database with sample data"
+  desc "Fill database with sample users"
   task :populate, :environment do
-    30.times do |n|
-      name = Faker::Name.first_name
-      score = 5 + rand(40)
-      game = "solitaire"
-      Highscore.create!(  name: name,
+    ["solitaire", "mastermind"].each do |game|
+      30.times do |n|
+        name = Faker::Name.first_name
+        score = 5 + rand(40)
+        Highscore.create!(name: name,
                           score: score,
                           game: game)
-    end
-    30.times do |n|
-      name = Faker::Name.first_name
-      score = 5 + rand(40)
-      game = "mastermind"
-      Highscore.create!(  name: name,
-                          score: score,
-                          game: game)
+      end
     end
   end
 
