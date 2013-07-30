@@ -39,6 +39,10 @@ class JSGames < Sinatra::Base
     Highscore.create(name: name, score: score, game: game_title)
   end
 
+  get '/animalquiz' do
+    erb :'animalquiz/index'
+  end
+
   not_found do
     halt 404, 'not found'
   end
