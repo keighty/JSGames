@@ -9,12 +9,13 @@ require './models/quiz'
 require './models/question'
 
 class JSGames < Sinatra::Base
-  get '/' do
-    erb :index
+
+  get '/animalquiz' do
+    erb :'animalquiz/index'
   end
 
-  get '/solitaire' do
-    erb :'solitaire/index'
+  not_found do
+    halt 404, 'not found'
   end
 
 end
