@@ -4,9 +4,10 @@ require 'sinatra'
 require 'sinatra/activerecord'
 
 require './lib/mastermind'
+require './lib/quiz'
 require './config/environments'
 require './models/highscore'
-require './models/question'
+require './models/quiz'
 
 class JSGames < Sinatra::Base
   get '/' do
