@@ -26,6 +26,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    columnize (0.3.6)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.4)
     faker (1.1.2)
       i18n (~> 0.5)
@@ -90,6 +97,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   capybara
+  debugger
   faker
   pg
   rspec

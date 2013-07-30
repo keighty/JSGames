@@ -7,6 +7,7 @@ gem "sinatra-activerecord"
 
 gem 'rspec'
 gem 'faker'
+gem 'debugger'
 
 group :development, :test do
   gem 'shotgun'
