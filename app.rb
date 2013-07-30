@@ -6,6 +6,7 @@ require 'sinatra/activerecord'
 require './lib/mastermind'
 require './config/environments'
 require './models/highscore'
+require './models/question'
 
 class JSGames < Sinatra::Base
   get '/' do
