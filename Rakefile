@@ -37,4 +37,9 @@ namespace :db do
   end
 end
 
+desc 'Run animal quiz specs'
+task :quiz do |t|
+  exec 'rspec spec/animalquiz/*_spec.rb'
+end
+
 task default: :spec
