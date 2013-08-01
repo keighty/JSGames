@@ -1,4 +1,4 @@
-require './models/highscore'
+require 'models/highscore'
 
 class JSGames < Sinatra::Base
   get '/highscores' do
