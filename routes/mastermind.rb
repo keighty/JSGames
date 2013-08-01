@@ -1,4 +1,4 @@
-require './lib/mastermind'
+require 'lib/mastermind'
 
 class JSGames < Sinatra::Base
   get '/mastermind' do

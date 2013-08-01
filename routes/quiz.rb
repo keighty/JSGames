@@ -1,5 +1,5 @@
-require './lib/quiz'
-require './models/quiz'
+require 'lib/quiz'
+require 'models/quiz'
 
 class JSGames < Sinatra::Base
   get '/animalquiz' do
