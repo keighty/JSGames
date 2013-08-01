@@ -1,5 +1,3 @@
-# require 'bundler'
-# Bundler.require
 require 'sinatra'
 require 'sinatra/activerecord'
 
@@ -25,8 +23,8 @@ class JSGames < Sinatra::Base
   end
 
   get '/highscores' do
-    @solitaire_scores = Highscore.reorder(:score).find_all_by_game("solitaire", limit: 10)
-    @mastermind_scores = Highscore.reorder(:score).find_all_by_game("mastermind", limit: 10)
+    @solitaire_scores = get_high_score("solitaire")
+    @mastermind_scores = get_high_score("mastermind")
     erb :'highscore/index'
   end
 
@@ -44,5 +42,9 @@ class JSGames < Sinatra::Base
   private
     def game
       @game ||= Mastermind::Game.new_with_code(params[:code])
+    end
+
+    def get_high_score(game)
+      Highscore.reorder(:score).find_all_by_game(game, limit: 10)
     end
 end
