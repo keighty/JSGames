@@ -7,14 +7,19 @@ class JSGames < Sinatra::Base
   end
 
   get '/animalquiz/start' do
-    quizzer.start
+    quizzer.ask
   end
 
-  get '/animalquiz/question' do
+  get '/animalquiz/yes' do
+    quizzer.yes
+  end
+
+  get '/animalquiz/no' do
+    quizzer.no
   end
 
   private
     def quizzer
-      @quizzer ||= AnimalQuiz::Quiz.new
+      @quizzer ||= AnimalQuiz::Quiz.start
     end
 end

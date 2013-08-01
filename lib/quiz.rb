@@ -1,18 +1,22 @@
 module AnimalQuiz
   class Quiz
     attr_accessor :root, :current
-    def initialize
-      @root = QuizNode.new("Is it an elephant?", nil, nil)
+
+    def self.start
+      quiz = self.new
+      quiz.root = QuizNode.new("Is it an elephant?", nil, nil)
+      quiz.current = quiz.root
+      return quiz
     end
 
-    def start
-      @current = @root
+    def ask
       @current.question
     end
 
     def no
       if @current.no.nil?
-        get_response
+        # get_response
+        return "get response"
       else
         @current = @current.no
         return @current.question
@@ -21,7 +25,8 @@ module AnimalQuiz
 
     def yes
       @current = @current.yes
-      return @current.question
+      return @current.question unless @current.nil?
+      # Gloater.gloat(5)
     end
 
     def get_response
