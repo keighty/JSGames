@@ -1,11 +1,13 @@
 module Mastermind
   class Game
     attr_accessor :code, :mark
+
     def self.new_with_code(startcode)
       game = self.new
       game.code = startcode
       return game
     end
+
     def guess(guess)
       @mark = ''
       @guess = guess
@@ -24,9 +26,11 @@ module Mastermind
       end
       @mark.split('').sort.join
     end
+
     def exact_match?(index)
       @code[index] == @guess[index]
     end
+
     def number_match?(index)
       @code.include?(@guess[index])
     end
