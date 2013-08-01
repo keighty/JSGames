@@ -1,4 +1,3 @@
-require_relative 'main'
-require_relative 'solitaire'
-require_relative 'mastermind'
-require_relative 'highscore'
+Dir[File.join(settings.root, 'routes', '*.rb')].each do |f|
+  require f
+end
