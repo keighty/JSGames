@@ -29,10 +29,9 @@ class JSGames < Sinatra::Base
   end
 
   post '/highscore/:name' do
-    name = params[:name]
-    score = params[:score]
-    game_title = params[:game]
-    Highscore.create(name: name, score: score, game: game_title)
+    Highscore.create( name: params[:name],
+                      score: params[:score],
+                      game: params[:game])
   end
 
   not_found do
