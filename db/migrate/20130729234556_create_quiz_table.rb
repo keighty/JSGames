@@ -8,9 +8,7 @@ class CreateQuizTable < ActiveRecord::Migration
       t.timestamps
     end
 
-    Quiz.create(question: "Do you swim?",
-                    yes: "salmon",
-                    no: "elephant")
+    Quiz.create(question: "Is it an elephant?")
   end
 
   def down
