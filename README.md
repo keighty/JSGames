@@ -1,4 +1,4 @@
-#JSGames
+#JSGames [![Code Climate](https://codeclimate.com/github/keighty/JSGames.png)](https://codeclimate.com/github/keighty/JSGames)
 
 ##Solitaire
 ###Object
