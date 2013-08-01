@@ -1,8 +1,10 @@
-require 'sinatra'
-require 'sinatra/activerecord'
-require './config/environments'
+$LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require_relative 'routes/init'
+require 'bundler'
+Bundler.require
+
+require 'config/environments'
+require 'routes/init'
 
 class JSGames < Sinatra::Base
   set :root, File.dirname(__FILE__)
