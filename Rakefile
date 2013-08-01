@@ -1,12 +1,4 @@
 require './app'
-require 'sinatra/activerecord/rake'
-require 'rspec/core/rake_task'
-require 'faker'
-
-RSpec::Core::RakeTask.new do |task|
-  task.rspec_opts = ["-r ./spec/spec_helper.rb"]
-  task.pattern    = 'spec/**/*_spec.rb'
-end
 
 desc "run irb console"
 task :console, :environment do |t, args|
@@ -40,6 +32,11 @@ end
 desc 'Run animal quiz specs'
 task :quiz do |t|
   exec 'rspec spec/animalquiz/*_spec.rb'
+end
+
+desc 'Run all specs'
+task :spec do |t|
+  exec 'rspec spec'
 end
 
 task default: :spec
