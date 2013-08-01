@@ -4,9 +4,6 @@ require './config/environments'
 
 require_relative 'routes/init'
 
-require './lib/quiz'
-require './models/quiz'
-
 class JSGames < Sinatra::Base
   set :root, File.dirname(__FILE__)
 
