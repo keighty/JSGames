@@ -9,6 +9,7 @@ class CreateQuizTable < ActiveRecord::Migration
     end
 
     Quiz.create(question: "Is it an elephant?")
+
   end
 
   def down
