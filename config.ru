@@ -1,2 +1,4 @@
-require File.join(File.dirname(__FILE__), 'app.rb')
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'app'
 run JSGames
