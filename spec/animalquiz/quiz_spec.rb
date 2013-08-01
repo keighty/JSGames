@@ -4,8 +4,8 @@ module AnimalQuiz
   describe Quiz do
     subject { @quiz }
     before do
-      @quiz = AnimalQuiz::Quiz.new
-      @output = @quiz.start
+      @quiz = AnimalQuiz::Quiz.start
+      @output = @quiz.ask
     end
 
   it { should respond_to(:no) }
@@ -27,7 +27,7 @@ module AnimalQuiz
         animal = "tiger"
         question = "Does it have fur?"
         answer = "yes"
-        expect(@quiz.wrong(animal, question, answer)).to eq("Play again?")
+        expect(@quiz.wrong(animal, question, answer)).to_not be_nil
       end
       it "follows a path through two nodes" do
         @quiz.no
