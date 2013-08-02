@@ -51,18 +51,5 @@ module AnimalQuiz
 
       @current.update_attributes(question: question, yes: yes.id, no: no.id)
     end
-
-    def printit
-      print_all(self.root)
-    end
-
-
-    private
-      def print_all(node)
-        return if node.nil?
-        print_all(node.yes)
-        puts node.question
-        print_all(node.no)
-      end
   end
 end
