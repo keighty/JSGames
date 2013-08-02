@@ -1,10 +1,10 @@
 module AnimalQuiz
-  class Quiz
+  class Quizzer
     attr_accessor :root, :current
 
     def self.start
       quiz = self.new
-      quiz.root = QuizNode.new("Is it an elephant?", nil, nil)
+      quiz.root = Quiz.find_by_id(1)
       quiz.current = quiz.root
       return quiz
     end
@@ -15,18 +15,16 @@ module AnimalQuiz
 
     def no
       if @current.no.nil?
-        # get_response
-        return "get response"
+        get_response
       else
-        @current = @current.no
+        @current = Quiz.find_by_id(@current.no)
         return @current.question
       end
     end
 
     def yes
-      @current = @current.yes
+      @current = Quiz.find_by_id(@current.yes)
       return @current.question unless @current.nil?
-      # Gloater.gloat(5)
     end
 
     def get_response
@@ -43,9 +41,15 @@ module AnimalQuiz
     def wrong(animal, question, answer)
       old_question = @current.question
 
-      @current.question = question
-      @current.yes = QuizNode.new("Is it a #{animal}", nil, nil)
-      @current.no = QuizNode.new(old_question, nil, nil)
+      if answer == 'yes'
+        yes = Quiz.create(question: "Is it a #{animal}")
+        no = Quiz.create(question: old_question)
+      else
+        yes = Quiz.create(question: old_question)
+        no = Quiz.create(question: "Is it a #{animal}")
+      end
+
+      @current.update_attributes(question: question, yes: yes.id, no: no.id)
     end
 
     def printit
@@ -60,11 +64,5 @@ module AnimalQuiz
         puts node.question
         print_all(node.no)
       end
-  end
-end
-
-class QuizNode < Struct.new(:question, :yes, :no)
-  def to_s
-    @question
   end
 end
