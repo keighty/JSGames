@@ -9,6 +9,7 @@ gem 'rake'
 gem 'rspec'
 gem 'faker'
 gem 'debugger'
+gem 'titlecase'
 
 group :development, :test do
   gem 'shotgun'
