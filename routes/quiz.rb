@@ -6,20 +6,16 @@ class JSGames < Sinatra::Base
     erb :'animalquiz/index'
   end
 
-  get '/animalquiz/start' do
+  post '/animalquiz/start' do
     quizzer.ask
   end
 
-  get '/animalquiz/yes' do
-    quizzer.yes
-  end
-
-  get '/animalquiz/no' do
-    quizzer.no
+  post '/animalquiz/wrong' do
+    quizzer.wrong(params[:animal], params[:question], params[:answer])
   end
 
   private
     def quizzer
-      @quizzer ||= AnimalQuiz::Quiz.start
+      @quizzer ||= AnimalQuiz::Quizzer.start(params[:id])
     end
 end
