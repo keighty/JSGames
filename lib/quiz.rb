@@ -16,7 +16,7 @@ module AnimalQuiz
 
     def wrong(animal, question, answer)
       old_question = @current.question
-      question.titlecase!
+      # question.titlecase!
 
       question += '?' unless question.include?('?')
 
