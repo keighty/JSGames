@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="/custom/quiz/styles.css">
+<script src="/custom/quiz/script.js"></script>
 
 <div class="hero-unit">
   <h1>Animal Quiz</h1>
   <%= erb :'_description/_animalquiz'  %>
   <button id="ready" class="btn btn-large btn-primary">Ready?</button>
 </div>
-  <%= erb :'animalquiz/_form'  %>
-  <%= erb :'animalquiz/_question'  %>
+
+<%= erb :'animalquiz/_question'  %>
+<%= erb :'animalquiz/_form'  %>
