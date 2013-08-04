@@ -17,6 +17,11 @@ $(function() {
   });
 
   $('#ready').bind('click', function() {
+    //hide the header
+    $('.hero-unit').slideUp(500);
+    // hide the button
+    $("#ready").hide();
+    //get the question
     get_question(root);
   });
 
@@ -24,8 +29,11 @@ $(function() {
     if(yes){
       get_question(yes);
     } else {
-      $('.question_label').text("I win! Play Again?");
+      $('.question_label').text("I win!");
+      //hide the buttons
+      $('.question a').hide();
       yes = root;
+      play_again();
     }
   });
 
@@ -39,7 +47,6 @@ $(function() {
 
   //submit the query
   $('#submit').on('click', function() {
-    console.log("here");
     var question_url =
         "http://"+
         window.location.host +
@@ -63,6 +70,7 @@ $(function() {
         //hide the form
         $('.quiz_form').trigger("reset");
         $('.quiz_form').css('display', 'none');
+        play_again();
         return false;
       }
     });
@@ -97,6 +105,7 @@ var get_question = function get_question(question_id){
           no = element['no'];
           $('.question_label').text(question);
           $('.question').css('display', 'block');
+          $('.question a').show();
         }
       });
     }
@@ -111,4 +120,9 @@ var show_new_question_form = function show_new_question_form() {
   $('.quiz_form').css('display', 'block');
   //hide the question
   $('.question').css('display', 'none');
+};
+
+var play_again = function play_again() {
+  //play again?
+  $("#ready").show().appendTo('.container').text("Play Again?");
 };
