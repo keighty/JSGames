@@ -1,3 +1,6 @@
 .quiz_form {
   display: none;
 }
+.question {
+  display: none;
+}
