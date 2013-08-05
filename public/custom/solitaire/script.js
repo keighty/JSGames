@@ -1,5 +1,5 @@
 var row = "<div class='row'></div>",
-    square = "<div class='span4 square'></div>",
+    square = "<i class='icon-stop square'></i>",
     victory = "<div class='victory'>You won!</div>",
     gridSize = 5,
     allSquares;
@@ -48,7 +48,7 @@ var colorNeighbors = function(squareX) {
     squareX.next().toggleClass('blue');
     squareX.prev().toggleClass('blue');
     //get current square index
-    var myIndex = squareX.index('div.square');
+    var myIndex = squareX.index('.square');
     // add the gridsize and toggle class
     $(allSquares[myIndex + gridSize]).toggleClass('blue');
     // subtract the gridsize and toggle class
