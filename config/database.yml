@@ -6,7 +6,7 @@ development:
   host: localhost
 test:
   adapter: postgresql
-  database: highscore-test
+  database: highscoretest
   username: postgres
   password:
   host: localhost
