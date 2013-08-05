@@ -4,4 +4,4 @@ rvm:
 env:
   - DB=postgresql
 before_script:
-  - psql -c 'create database highscore-test' -U postgres
+  - psql -c 'create database highscoretest' -U postgres
