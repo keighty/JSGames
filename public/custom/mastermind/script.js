@@ -1,41 +1,56 @@
+/**************
+Variables
+***************/
 var secret,
     guess,
     mark,
     game,
     form,
+    win = '+++++',
     counter = 0;
 
+/**************
+Document Ready:
+  Click handlers
+***************/
 $(function() {
+  // ensure the form does not propagate
   form = $('form');
   form.on('click', function() {
     return false;
   });
 
+  /**************
+  Form Validation
+  ***************/
   form.validate({
-      rules: {
-        guess_text: {
-          maxlength: 5,
-          minlength: 5
-        }
-      },
-      highlight: function(element) {
-        $(element).closest('.control-group').removeClass('success').addClass('error');
-      },
-      success: function(element) {
-        element
-        .text('OK!').addClass('valid')
-        .closest('.control-group').removeClass('error').addClass('success');
+    rules: {
+      guess_text: {
+        maxlength: 5,
+        minlength: 5
       }
-    });
+    },
+    highlight: function(element) {
+      $(element).closest('.control-group').removeClass('success').addClass('error');
+    },
+    success: function(element) {
+      element
+      .text('OK!').addClass('valid')
+      .closest('.control-group').removeClass('error').addClass('success');
+    }
+  });
 
+  /**************
+  Prep the game board
+  ***************/
   $('.btn-primary').bind('click', function() {
     game = new Game();
     prep_game_board();
-    //hide the header
-    $('.hero-unit').slideUp(500);
   });
 
-  // processes the guess and increments guess counter
+  /**************
+  Send guess for processing onClick and increment guess counter
+  ***************/
   $('#guess').bind('click', function() {
     var user_guess = $('#guess_text').val();
     $('#guess_text').val("");
@@ -43,18 +58,18 @@ $(function() {
     game.guess(user_guess);
   });
 
-  // creates an entry in the highscore table
-  // redirects to highscore page
+  /**************
+  High score handling onClick: create entry and redirect
+  ***************/
   $('#submit_score').bind('click', function() {
     // submit the name for high score
     var name = $('#highscore_name').val();
     var high_score_url = "http://" + window.location.host + "/highscore/" + name;
     var visit_high_scores = "http://" + window.location.host + "/highscores";
 
-    console.log(name);
-    console.log(high_score_url);
-    console.log(counter);
-
+    /**************
+    Post high score
+    ***************/
     var high_score = $.ajax({
       type: "POST",
       url: high_score_url,
@@ -67,22 +82,31 @@ $(function() {
         window.location.href = visit_high_scores;
       }
     });
+
     $('#high_score_form').trigger('close');
   });
 });
 
+/**************
+Prep game board
+***************/
 var prep_game_board = function prep_game_board() {
-  // TODO vanish hero unit but keep button
-
+  //hide the header
+  $('.hero-unit').slideUp(500);
   $('.guess_additions').remove();
   $('.game_outline').show();
   $('#highscore_name').val("");
   counter = 0;
 
+  /**************
+  Debugging
+  ***************/
   console.log(game.secret);
 };
 
-// Game object
+/**************
+Game Class definition
+***************/
 function Game(start_code) {
   if(typeof start_code === 'undefined') {
     this.secret = codeGen();
@@ -97,11 +121,16 @@ function Game(start_code) {
   };
 }
 
+/**************
+Generate the secret code
+***************/
 var codeGen = function codeGen() {
   return (""+Math.random()).substring(2,7);
 };
 
-// uses ajax to call ruby
+/**************
+Send code and guess for validation
+***************/
 var mark = function mark(secret_code, guess_string){
   var the_url = "http://" + window.location.host + "/mastermind/game/" + guess_string;
   var mark_string = $.ajax({
@@ -119,11 +148,14 @@ var mark = function mark(secret_code, guess_string){
   });
 };
 
-// builds the guess display
-// checks the analyzed guess for a win
+/**************
+Build the guess display
+Check for win
+***************/
 var process_output = function process_output(secret, guess, output) {
   build_guess_html(guess, output);
-  if (output == "+++++"){
+
+  if (output == win){
     form.hide();
     build_alert_html("success");
     // change the score display
@@ -139,6 +171,9 @@ var process_output = function process_output(secret, guess, output) {
   }
 };
 
+/**************
+Builds the guess html
+***************/
 var build_guess_html = function(input_string, output_string) {
   html = '';
   html += "<div class='row guess_additions'><div class='span6 guess'><p>";
@@ -150,6 +185,9 @@ var build_guess_html = function(input_string, output_string) {
   $(html).prependTo('.guess_row');
 };
 
+/**************
+Builds alert html
+***************/
 var build_alert_html = function(alert_type) {
   var success_string = "<div class='span6 offset2 guess_additions alert alert-" + alert_type + "'><p>You guessed the secret!</p></div>";
   $(success_string).prependTo('.game_area');
