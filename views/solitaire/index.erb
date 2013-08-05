@@ -1,15 +1,16 @@
 <link rel="stylesheet" href="/custom/solitaire/styles.css">
+<link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
 <script src="/custom/solitaire/script.js"></script>
 
-<div class="hero-unit span3">
+<div class="hero-unit span4">
   <h1>Solitaire</h1>
   <%= erb :'_description/_solitaire'  %>
   <p>Click Reset to clear the board.</p>
-  <button class="btn btn-large btn-primary reset" type="submit">Reset</button>
+  <button class="pull-right btn btn-large btn-primary reset" type="submit">Reset</button>
 </div>
 
 
-<div class="span 6">
+<div class="span4 offset1">
   <div class="gameGrid">
   </div>
 </div>
