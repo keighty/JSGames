@@ -7,8 +7,8 @@ development:
 test:
   adapter: postgresql
   database: highscore-test
-  username: <%= ENV['PG_USER'] %>
-  password: <%= ENV['PG_PASS'] %>
+  username: postgres
+  password:
   host: localhost
 production:
   adapter: postgresql
