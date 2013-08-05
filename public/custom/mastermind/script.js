@@ -31,6 +31,8 @@ $(function() {
   $('.btn-primary').bind('click', function() {
     game = new Game();
     prep_game_board();
+    //hide the header
+    $('.hero-unit').slideUp(500);
   });
 
   // processes the guess and increments guess counter
