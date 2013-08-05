@@ -1,4 +1,4 @@
-#JSGames [![Code Climate](https://codeclimate.com/github/keighty/JSGames.png)](https://codeclimate.com/github/keighty/JSGames)
+#JSGames [![Build Status](https://travis-ci.org/keighty/JSGames.png?branch=master)](https://travis-ci.org/keighty/JSGames)[![Code Climate](https://codeclimate.com/github/keighty/JSGames.png)](https://codeclimate.com/github/keighty/JSGames)
 
 ##Solitaire
 ###Object
