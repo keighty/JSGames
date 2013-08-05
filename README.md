@@ -28,3 +28,10 @@ Help Ruby learn more about animals but playing a simple guessing game. If Ruby g
 
 ###Background
 This is a project inspired by The Best of Ruby Quiz. I implemented it as a binary search tree first, but then decided to practice some active record and created a database interaction.
+
+#Uses
+Framework: Sinatra
+Database: Postgresql
+Testing: RSpec, Jasmine
+Languages: Jquery, Ruby, Javascript
+Metrics: Simplecov, Travis, Code Climate
