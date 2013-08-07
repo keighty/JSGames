@@ -11,6 +11,6 @@ class JSGames < Sinatra::Base
 
   private
     def game
-      @game ||= Mastermind::Game.new_with_code(params[:code])
+      @game ||= Mastermind::Game.start(params[:code])
     end
 end

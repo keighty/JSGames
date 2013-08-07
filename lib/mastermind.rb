@@ -2,7 +2,7 @@ module Mastermind
   class Game
     attr_accessor :code, :mark
 
-    def self.new_with_code(startcode)
+    def self.start(startcode)
       game = self.new
       game.code = startcode
       return game
