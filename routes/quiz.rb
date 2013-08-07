@@ -6,12 +6,12 @@ class JSGames < Sinatra::Base
     erb :'animalquiz/index'
   end
 
-  post '/animalquiz/start' do
+  post '/animalquiz/ask' do
     quizzer.ask
   end
 
-  post '/animalquiz/wrong' do
-    quizzer.wrong(params[:animal], params[:question], params[:answer])
+  post '/animalquiz/learn' do
+    quizzer.learn_new_animal(params[:animal], params[:question], params[:answer])
   end
 
   private

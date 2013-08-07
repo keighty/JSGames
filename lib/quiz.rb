@@ -11,24 +11,29 @@ module AnimalQuiz
     end
 
     def ask
-      @current.to_json
+      current.to_json
     end
 
-    def wrong(animal, question, answer)
-      old_question = @current.question
-      # question.titlecase!
+    def learn_new_animal(new_animal, clarifying_question, clarifying_answer)
+      new_question = format(clarifying_question)
 
-      question += '?' unless question.include?('?')
 
-      if answer == 'yes'
-        yes = Quiz.create(question: "Is it a #{animal}?")
-        no = Quiz.create(question: old_question)
+
+      if clarifying_answer == 'yes'
+        yes = Quiz.create(question: "Is it a #{new_animal}?")
+        no = Quiz.create(question: current.question)
       else
-        yes = Quiz.create(question: old_question)
-        no = Quiz.create(question: "Is it a #{animal}?")
+        yes = Quiz.create(question: current.question)
+        no = Quiz.create(question: "Is it a #{new_animal}?")
       end
 
-      @current.update_attributes(question: question, yes: yes.id, no: no.id)
+      current.update_attributes(question: new_question, yes: yes.id, no: no.id)
     end
+
+    private
+      def format(question)
+        question.capitalize!
+        question += '?' unless question.include?('?')
+      end
   end
 end
