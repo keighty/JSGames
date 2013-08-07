@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>mastermind.rb</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>mastermind.rb</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="class"><span class="keyword">module</span> <span class="title">Mastermind</span></span>
+  <span class="class"><span class="keyword">class</span> <span class="title">Game</span></span>
+    attr_accessor <span class="symbol">:code</span>, <span class="symbol">:mark</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title"><span class="keyword">self</span></span>.<span class="title">new_with_code</span><span class="params">(startcode)</span></span>
+      game = <span class="keyword">self</span>.new
+      game.code = startcode
+      <span class="keyword">return</span> game
+    <span class="keyword">end</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">guess</span><span class="params">(guess)</span></span>
+      <span class="variable">@mark</span> = <span class="string">''</span>
+      <span class="variable">@guess</span> = guess
+      code = <span class="variable">@code</span>
+      guess.split(<span class="string">''</span>).each_with_index <span class="keyword">do</span> |char, index|
+        <span class="keyword">if</span> exact_match?(index)
+          <span class="variable">@mark</span> &lt;&lt; <span class="string">'+'</span>
+          code[index] = <span class="string">'x'</span>
+        <span class="keyword">elsif</span> number_match?(index)
+          location = code.index(guess[index])
+          <span class="keyword">unless</span> exact_match?(location)
+            <span class="variable">@mark</span> &lt;&lt; <span class="string">'-'</span>
+            code[location] = <span class="string">'x'</span>
+          <span class="keyword">end</span>
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>
+      <span class="variable">@mark</span>.split(<span class="string">''</span>).sort.join
+    <span class="keyword">end</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">exact_match?</span><span class="params">(index)</span></span>
+      <span class="variable">@code</span>[index] == <span class="variable">@guess</span>[index]
+    <span class="keyword">end</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">number_match?</span><span class="params">(index)</span></span>
+      <span class="variable">@code</span>.<span class="keyword">include</span>?(<span class="variable">@guess</span>[index])
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
