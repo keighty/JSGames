@@ -27,23 +27,21 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>quiz/script.js contains all the implementation logic for AnimalQuiz,  inspired by challenge #4 of Ruby Quiz. The script tracks the user interaction and uses ajax to communicate with the persistence layer.</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="comment">/**************
 Variables
 ***************/</span>
-<span class="keyword">var</span> secret,
-    guess,
-    mark,
-    game,
-    form,
-    win = <span class="string">'+++++'</span>,
-    counter = <span class="number">0</span>;
+<span class="keyword">var</span> start_question_id = <span class="number">1</span>,
+    yes_path,
+    no_path,
+    question_text,
+    question_id;
 
 <span class="comment">/**************
-Document Ready:
-  Click handlers
+Game Preparation
 ***************/</span>
 $(<span class="keyword">function</span>() {</pre></div></div>
             
@@ -56,57 +54,14 @@ $(<span class="keyword">function</span>() {</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>ensure the form does not propagate</p>
+              <p>Setting the forms to return false ensures that the page is not refreshed on submit.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  form = $(<span class="string">'form'</span>);
-  form.on(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+            <div class="content"><div class='highlight'><pre>  $(<span class="string">'form'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>() {
     <span class="keyword">return</span> <span class="literal">false</span>;
   });
-
-  <span class="comment">/**************
-  Form Validation
-  ***************/</span>
-  form.validate({
-    rules: {
-      guess_text: {
-        maxlength: <span class="number">5</span>,
-        minlength: <span class="number">5</span>
-      }
-    },
-    highlight: <span class="keyword">function</span>(element) {
-      $(element).closest(<span class="string">'.control-group'</span>).removeClass(<span class="string">'success'</span>).addClass(<span class="string">'error'</span>);
-    },
-    success: <span class="keyword">function</span>(element) {
-      element
-      .text(<span class="string">'OK!'</span>).addClass(<span class="string">'valid'</span>)
-      .closest(<span class="string">'.control-group'</span>).removeClass(<span class="string">'error'</span>).addClass(<span class="string">'success'</span>);
-    }
-  });
-
-  <span class="comment">/**************
-  Prep the game board
-  ***************/</span>
-  $(<span class="string">'.btn-primary'</span>).bind(<span class="string">'click'</span>, <span class="keyword">function</span>() {
-    game = <span class="keyword">new</span> Game();
-    prep_game_board();
-  });
-
-  <span class="comment">/**************
-  Send guess for processing onClick and increment guess counter
-  ***************/</span>
-  $(<span class="string">'#guess'</span>).bind(<span class="string">'click'</span>, <span class="keyword">function</span>() {
-    <span class="keyword">var</span> user_guess = $(<span class="string">'#guess_text'</span>).val();
-    $(<span class="string">'#guess_text'</span>).val(<span class="string">""</span>);
-    counter += <span class="number">1</span>;
-    game.guess(user_guess);
-  });
-
-  <span class="comment">/**************
-  High score handling onClick: create entry and redirect
-  ***************/</span>
-  $(<span class="string">'#submit_score'</span>).bind(<span class="string">'click'</span>, <span class="keyword">function</span>() {</pre></div></div>
+  $(<span class="string">'form'</span>).hide();</pre></div></div>
             
         </li>
         
@@ -117,38 +72,15 @@ $(<span class="keyword">function</span>() {</pre></div></div>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>submit the name for high score</p>
+              <p>When the player is ready to play (ie. has thought of an animal), the game should move the hero unit and the ready button out of the way, and get the first question.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> name = $(<span class="string">'#highscore_name'</span>).val();
-    <span class="keyword">var</span> high_score_url = <span class="string">"http://"</span> + window.location.host + <span class="string">"/highscore/"</span> + name;
-    <span class="keyword">var</span> visit_high_scores = <span class="string">"http://"</span> + window.location.host + <span class="string">"/highscores"</span>;
-
-    <span class="comment">/**************
-    Post high score
-    ***************/</span>
-    <span class="keyword">var</span> high_score = $.ajax({
-      type: <span class="string">"POST"</span>,
-      url: high_score_url,
-      accepts: <span class="string">"application/json"</span>,
-      dataType: <span class="string">"json"</span>,
-      data: {
-        <span class="string">'game'</span>  : <span class="string">"mastermind"</span>,
-        <span class="string">'score'</span> : counter },
-      complete: <span class="keyword">function</span>(data){
-        window.location.href = visit_high_scores;
-      }
-    });
-
-    $(<span class="string">'#high_score_form'</span>).trigger(<span class="string">'close'</span>);
-  });
-});
-
-<span class="comment">/**************
-Prep game board
-***************/</span>
-<span class="keyword">var</span> prep_game_board = <span class="function"><span class="keyword">function</span> <span class="title">prep_game_board</span><span class="params">()</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $(<span class="string">'#ready_button'</span>).bind(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+    $(<span class="string">'.hero-unit'</span>).slideUp(<span class="number">500</span>);
+    $(<span class="string">"#ready_button"</span>).hide();
+    ask_question(start_question_id);
+  });</pre></div></div>
             
         </li>
         
@@ -159,76 +91,13 @@ Prep game board
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>hide the header</p>
+              <p>When the player clicks the &quot;yes&quot; button, send the yes_path for processing</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $(<span class="string">'.hero-unit'</span>).slideUp(<span class="number">500</span>);
-  $(<span class="string">'.guess_additions'</span>).remove();
-  $(<span class="string">'.game_outline'</span>).show();
-  $(<span class="string">'#highscore_name'</span>).val(<span class="string">""</span>);
-  counter = <span class="number">0</span>;
-
-  <span class="comment">/**************
-  Debugging
-  ***************/</span>
-  console.log(game.secret);
-};
-
-<span class="comment">/**************
-Game Class definition
-***************/</span>
-<span class="function"><span class="keyword">function</span> <span class="title">Game</span><span class="params">(start_code)</span> {</span>
-  <span class="keyword">if</span>(<span class="keyword">typeof</span> start_code === <span class="string">'undefined'</span>) {
-    <span class="keyword">this</span>.secret = codeGen();
-  } <span class="keyword">else</span> {
-    <span class="keyword">this</span>.secret = start_code;
-  }
-  <span class="keyword">this</span>.guess = <span class="function"><span class="keyword">function</span> <span class="title">guess</span><span class="params">(guess_string)</span>{</span>
-    <span class="keyword">if</span>(guess_string.length &gt; <span class="number">5</span> || guess_string.length &lt; <span class="number">5</span>){
-      <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Not a valid guess"</span>);
-    }
-    mark(<span class="keyword">this</span>.secret, guess_string);
-  };
-}
-
-<span class="comment">/**************
-Generate the secret code
-***************/</span>
-<span class="keyword">var</span> codeGen = <span class="function"><span class="keyword">function</span> <span class="title">codeGen</span><span class="params">()</span> {</span>
-  <span class="keyword">return</span> (<span class="string">""</span>+Math.random()).substring(<span class="number">2</span>,<span class="number">7</span>);
-};
-
-<span class="comment">/**************
-Send code and guess for validation
-***************/</span>
-<span class="keyword">var</span> mark = <span class="function"><span class="keyword">function</span> <span class="title">mark</span><span class="params">(secret_code, guess_string)</span>{</span>
-  <span class="keyword">var</span> the_url = <span class="string">"http://"</span> + window.location.host + <span class="string">"/mastermind/game/"</span> + guess_string;
-  <span class="keyword">var</span> mark_string = $.ajax({
-    type: <span class="string">"POST"</span>,
-    url: the_url,
-
-    accepts: <span class="string">"application/json"</span>,
-    dataType: <span class="string">"json"</span>,
-
-    data: { <span class="string">'code'</span> : secret_code },
-    complete: <span class="keyword">function</span>(data){
-      <span class="keyword">var</span> output_mark = data[<span class="string">'responseText'</span>];
-      process_output(secret_code, guess_string, output_mark);
-    }
-  });
-};
-
-<span class="comment">/**************
-Build the guess display
-Check for win
-***************/</span>
-<span class="keyword">var</span> process_output = <span class="function"><span class="keyword">function</span> <span class="title">process_output</span><span class="params">(secret, guess, output)</span> {</span>
-  build_guess_html(guess, output);
-
-  <span class="keyword">if</span> (output == win){
-    form.hide();
-    build_alert_html(<span class="string">"success"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $(<span class="string">'#yes_button'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+    process_path(yes_path, <span class="string">'yes'</span>);
+  });</pre></div></div>
             
         </li>
         
@@ -239,11 +108,13 @@ Check for win
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>change the score display</p>
+              <p>When the player clicks on the &quot;no&quot; button, send the no_path for processing</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    $(<span class="string">'#score_title'</span>).text(<span class="string">"You won in "</span> + counter + <span class="string">" moves"</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $(<span class="string">'#no_button'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+    process_path(no_path, <span class="string">'no'</span>);
+  });</pre></div></div>
             
         </li>
         
@@ -254,40 +125,215 @@ Check for win
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>make the lighbox visible</p>
+              <p>When the player submits information about the animal, the game will send it on to the database.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    $(<span class="string">'#high_score_form'</span>).lightbox_me({
-      centered: <span class="literal">true</span>,
-      onLoad: <span class="keyword">function</span>() {
-        $(<span class="string">'#high_score_form'</span>).find(<span class="string">'input:first'</span>).focus();
-        }
-      });
-    e.preventDefault();
+            <div class="content"><div class='highlight'><pre>  $(<span class="string">'#submit'</span>).on(<span class="string">'click'</span>, <span class="keyword">function</span>() {
+    submit_learn_animal_form();
+  });
+});
+
+<span class="comment">/**************
+Game Play
+***************/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>When the user chooses a path, first check if the path is defined. If the path is defined, return the question, if not, the game has either guessed the correct animal and will gloat about it, or it will ask for more information.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> process_path = <span class="keyword">function</span>(path, path_name){
+  <span class="keyword">if</span>(path){
+    ask_question(path);
+  } <span class="keyword">else</span> {
+    <span class="keyword">if</span>(path_name == <span class="string">'yes'</span>){
+      game_over();
+    } <span class="keyword">else</span> {
+      show_learn_animal_form();
+    }
   }
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>The game uses ajax to query the database for the next question. The game sends the id of the question it would like returned and forwards the response for further processing.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> ask_question = <span class="function"><span class="keyword">function</span> <span class="title">ask_question</span><span class="params">(next_question)</span>{</span>
+  $.ajax({
+    type: <span class="string">"POST"</span>,
+    url: <span class="string">"http://"</span>+ window.location.host + <span class="string">"/animalquiz/ask"</span>,
+    dataType: <span class="string">"json"</span>,
+    data: { <span class="string">'id'</span> : next_question },
+    complete: <span class="keyword">function</span>(data){
+      process_json(data[<span class="string">'responseJSON'</span>]);
+    }
+  });
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>process_json() retrieves the interesting data from the json and update all the variables.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> process_json = <span class="keyword">function</span>(json) {
+  question_id = json[<span class="string">'id'</span>];
+  question_text = json[<span class="string">'question'</span>];
+  yes_path = json[<span class="string">'yes'</span>];
+  no_path = json[<span class="string">'no'</span>];
+
+  display_next_question(question_text);
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>display_next_question() modifies and shows the question form and response buttons.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> display_next_question = <span class="function"><span class="keyword">function</span> <span class="title">display_next_question</span><span class="params">(display_text)</span> {</span>
+  $(<span class="string">'.question_form h3'</span>).text(display_text);
+  $(<span class="string">'.question_form a'</span>).show();
+  $(<span class="string">'.question_form'</span>).show();
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>If the game has not guessed the user&#39;s animal, it would like to learn about it. It will hide the current_question form and display the new_question form.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/**************
+Game Learns
+***************/</span>
+<span class="keyword">var</span> show_learn_animal_form = <span class="function"><span class="keyword">function</span> <span class="title">show_learn_animal_form</span><span class="params">()</span> {</span>
+  $(<span class="string">'.question_form'</span>).hide();
+  $(<span class="string">'.learn_animal_form'</span>).show();
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>The game submits the information provided by the user.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> submit_learn_animal_form = <span class="function"><span class="keyword">function</span> <span class="title">submit_learn_animal_form</span><span class="params">()</span> {</span>
+  $.ajax({
+    type: <span class="string">"POST"</span>,
+    url: <span class="string">"http://"</span>+ window.location.host + <span class="string">"/animalquiz/learn"</span>,
+    accepts: <span class="string">"application/json"</span>,
+    dataType: <span class="string">"json"</span>,
+    data: {
+      <span class="string">'id'</span> : question_id,
+      <span class="string">'animal'</span> : $(<span class="string">'#new_animal'</span>).val(),
+      <span class="string">'question'</span> : $(<span class="string">'#new_question'</span>).val(),
+      <span class="string">'answer'</span> : $(<span class="string">'input:checked'</span>, <span class="string">'.learn_animal_form'</span>).val() },
+    complete: <span class="keyword">function</span>(data){</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>When the form is successfully submitted, it asks the user to play again</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      play_again();
+      <span class="keyword">return</span> <span class="literal">false</span>;
+    }
+  });
 };
 
 <span class="comment">/**************
-Builds the guess html
-***************/</span>
-<span class="keyword">var</span> build_guess_html = <span class="keyword">function</span>(input_string, output_string) {
-  html = <span class="string">''</span>;
-  html += <span class="string">"&lt;div class='row guess_additions'&gt;&lt;div class='span6 guess'&gt;&lt;p&gt;"</span>;
-  html += input_string;
-  html += <span class="string">"&lt;/p&gt;&lt;/div&gt;&lt;div class='span6 mark'&gt;&lt;p&gt;"</span>;
-  html += output_string;
-  html += <span class="string">"&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;"</span>;
+Game Over
+***************/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>When it has guessed the animal correctly, the game will hide the option buttons, boast about its guessing prowess, and ask if the user would like to play again.</p>
 
-  $(html).prependTo(<span class="string">'.guess_row'</span>);
-};
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> game_over = <span class="function"><span class="keyword">function</span> <span class="title">game_over</span><span class="params">()</span> {</span>
+  $(<span class="string">'.question_form h3'</span>).text(<span class="string">"I win!"</span>);
+  $(<span class="string">'.question_form a'</span>).hide();
+  play_again();
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>The game and forms are reset and asks if the user would like to play again.</p>
 
-<span class="comment">/**************
-Builds alert html
-***************/</span>
-<span class="keyword">var</span> build_alert_html = <span class="keyword">function</span>(alert_type) {
-  <span class="keyword">var</span> success_string = <span class="string">"&lt;div class='span6 offset2 guess_additions alert alert-"</span> + alert_type + <span class="string">"'&gt;&lt;p&gt;You guessed the secret!&lt;/p&gt;&lt;/div&gt;"</span>;
-  $(success_string).prependTo(<span class="string">'.game_area'</span>);
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> play_again = <span class="function"><span class="keyword">function</span> <span class="title">play_again</span><span class="params">()</span> {</span>
+  $(<span class="string">"#ready_button"</span>).show().appendTo(<span class="string">'.container'</span>).text(<span class="string">"Play Again?"</span>);
+  $(<span class="string">'.learn_animal_form'</span>).trigger(<span class="string">"reset"</span>).hide();
 };</pre></div></div>
             
         </li>

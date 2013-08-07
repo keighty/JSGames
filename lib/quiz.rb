@@ -17,8 +17,6 @@ module AnimalQuiz
     def learn_new_animal(new_animal, clarifying_question, clarifying_answer)
       new_question = format(clarifying_question)
 
-
-
       if clarifying_answer == 'yes'
         yes = Quiz.create(question: "Is it a #{new_animal}?")
         no = Quiz.create(question: current.question)
