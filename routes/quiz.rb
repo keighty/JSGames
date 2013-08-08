@@ -16,6 +16,6 @@ class JSGames < Sinatra::Base
 
   private
     def quizzer
-      @quizzer ||= AnimalQuiz::Quizzer.start(params[:id])
+      @quizzer ||= AnimalQuiz.start(params[:id])
     end
 end
