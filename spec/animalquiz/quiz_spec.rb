@@ -1,12 +1,11 @@
 require 'spec_helper'
 
-module AnimalQuiz
-  describe Quizzer do
-    subject { @quiz }
-    before do
-      @quiz = AnimalQuiz::Quizzer.start(1)
-      @output = @quiz.ask
-    end
+describe AnimalQuiz do
+  subject { @quiz }
+  before do
+    @quiz = AnimalQuiz.start(1)
+    @output = @quiz.ask
+  end
 
   # it { should respond_to(:ask) }
 
@@ -34,5 +33,4 @@ module AnimalQuiz
   #       @quiz.yes
   #     end
   #   end
-  end
 end
