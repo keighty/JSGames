@@ -1,6 +1,5 @@
 require 'json'
 
-# AnimalQuiz is the controller
 class AnimalQuiz
   attr_accessor :current
 
@@ -21,9 +20,9 @@ class AnimalQuiz
     pathB = Quiz.create(question: current.question)
 
     if clarifying_answer == 'yes'
-      make_new_branch(new_question, pathA.id, pathB.id)
+      update_branch(new_question, pathA.id, pathB.id)
     else
-      make_new_branch(new_question, pathB.id, pathA.id)
+      update_branch(new_question, pathB.id, pathA.id)
     end
 
   end
@@ -34,7 +33,7 @@ class AnimalQuiz
       question += '?' unless question.include?('?')
     end
 
-    def make_new_branch(new_question, yes_path, no_path)
+    def update_branch(new_question, yes_path, no_path)
       current.update_attributes(question: new_question, yes: yes_path, no: no_path)
     end
 end
